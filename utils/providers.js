@@ -3,10 +3,22 @@ import { readToken, saveToken } from "./file.js";
 import { logger } from "./logger.js";
 import axios from 'axios';
 
+// Set to track previously generated names to prevent duplicates
+const generatedNames = new Set();
+
 async function connectWithToken(token) {
     const url = 'https://api.oasis.ai/internal/authConnect?batch=1';
-    const randomId = generateRandomId();
-    const formattedName = `Node${randomId}`;  // Add the formatted ID into the string
+    let randomId, formattedName;
+
+    // Ensure unique formattedName
+    do {
+        randomId = generateRandomId();
+        formattedName = `Node${randomId}`;  // Format name with the random ID
+    } while (generatedNames.has(formattedName));  // Check for duplicates
+
+    // Add the unique name to the set of generated names
+    generatedNames.add(formattedName);
+
     const payload = {
         "0": {
             "json": {
@@ -47,7 +59,6 @@ export async function createProviders(numID) {
                     continue;
                 }
             };
-            
         };
         return true;
     } catch (error) {
