@@ -1,5 +1,5 @@
-export function generateRandomId(length = 26) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+export function generateRandomId(length = 2) {
+    const characters = '0123456789'; // Only numbers 0-9
     let id = '';
     for (let i = 0; i < length; i++) {
         id += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -60,7 +60,7 @@ function generateRandomGpuInfo() {
 }
 
 function generateRandomOperatingSystem() {
-    const osList = ["windows", "linux", "macOS"];
+    const osList = ["windows"];
     return osList[Math.floor(Math.random() * osList.length)];
 }
 
