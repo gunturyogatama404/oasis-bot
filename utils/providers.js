@@ -6,11 +6,12 @@ import axios from 'axios';
 async function connectWithToken(token) {
     const url = 'https://api.oasis.ai/internal/authConnect?batch=1';
     const randomId = generateRandomId();
+    const formattedName = `Node${randomId}`;  // Add the formatted ID into the string
     const payload = {
         "0": {
             "json": {
-                "name": randomId,
-                "platform": "headless"
+                "name": formattedName,
+                "platform": "browser",
             }
         }
     };
